@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title> Barcode Scanner </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let barcode of barcodes.slice().reverse(); let i = index">
+      <ion-label position="stacked">
+        <h2> {{ barcode.format }} - {{ barcode.valueType }}</h2>
+        <h1> {{ barcode.displayValue }}</h1>
+        <div></div>
+      </ion-label>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-button color="medium" shape="round" (click)="shareBarcode(barcodes.length - 1 - i)">
+              <ion-icon slot="icon-only" name="share"></ion-icon>
+            </ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button color="secondary" shape="round" (click)="copyBarcode(barcodes.length - 1 - i)">
+              <ion-icon slot="icon-only" name="copy"></ion-icon>
+            </ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button color="danger" shape="round" (click)="deleteBarcode(barcodes.length - 1 - i)">
+              <ion-icon slot="icon-only" name="trash"></ion-icon>
+            </ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button color="success" shape="round" (click)="openBarcode(barcodes.length - 1 - i)">
+              <ion-icon slot="icon-only" name="open"></ion-icon>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </ion-list>
+  <div id="bottom"></div>
+
+  <ion-fab slot="fixed" vertical="bottom" horizontal="center">
+    <ion-fab-button color="dark" [disabled]="!isSupported">
+      <ion-icon name="scan"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="top">
+      <ion-fab-button color="dark" (click)="scan()" [disabled]="!isSupported">
+        <ion-icon name="scan"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button color="dark" (click)="scanfromimage()" [disabled]="!isSupported">
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
+</ion-content>
